@@ -90,13 +90,21 @@ AC_LANG_CASE([C], [
         AX_APPEND_FLAG(-std=gnu99, [opt_[]_AC_LANG_ABBREV[]flags])
     ])
 
+    AX_CHECK_COMPILE_FLAG([-fno-strict-aliasing], [
+        AX_APPEND_FLAG(-fno-strict-aliasing, [opt_[]_AC_LANG_ABBREV[]flags])
+    ])
+
     AX_CHECK_COMPILE_FLAG([-Wpointer-arith], [
         AX_APPEND_FLAG(-Wpointer-arith, [opt_[]_AC_LANG_ABBREV[]flags])
     ])
 
-    AX_CHECK_COMPILE_FLAG([-Wstrict-overflow=2], [
-        AX_APPEND_FLAG(-Wstrict-overflow=2, [opt_[]_AC_LANG_ABBREV[]flags])
-    ])
+	case "$ax_cv_[]_AC_LANG_ABBREV[]_compiler_vendor" in
+        gnu|clang)
+            AX_CHECK_COMPILE_FLAG([-Wstrict-overflow=2], [
+                AX_APPEND_FLAG(-Wstrict-overflow=2, [opt_[]_AC_LANG_ABBREV[]flags])
+            ])
+            ;;
+    esac
 
     case "$ax_cv_[]_AC_LANG_ABBREV[]_compiler_vendor" in
         gnu|clang|intel)
